@@ -371,8 +371,43 @@ class MinThetaParameterFunctional(ParameterFunctional):
     def d_mu(self, component, index=()):
         raise NotImplementedError
 
+class BaseMaxThetaParameterFunctional(ParameterFunctional):
+    """|ParameterFunctional| implementing the max-theta approach from [Haa17]_ (Exercise 5.12).
 
-class MaxThetaParameterFunctional(ParameterFunctional):
+
+    Parameters
+    ----------
+    TODO
+    """
+
+    def __init__(self, thetas_num, thetas_den, mu_bar, gamma_mu_bar=1., name=None):
+        assert isinstance(thetas_num, (list, tuple))
+        assert isinstance(thetas_den, (list, tuple))
+        thetas_num = [ConstantParameterFunctional(f) if not isinstance(f, ParameterFunctional) else f
+                  for f in thetas_num]
+        thetas_den = [ConstantParameterFunctional(f) if not isinstance(f, ParameterFunctional) else f
+                  for f in thetas_den]
+        assert all([isinstance(f, ParameterFunctional) for f in thetas_num])
+        assert all([isinstance(f, ParameterFunctional) for f in thetas_den])
+        self.build_parameter_type(*chain(thetas_num))
+        mu_bar = self.parse_parameter(mu_bar)
+        thetas_mu_bar = np.array([theta(mu_bar) for theta in thetas_den])
+        assert np.all(thetas_mu_bar > 0)
+        assert isinstance(gamma_mu_bar, Number)
+        assert gamma_mu_bar > 0
+        self.__auto_init(locals())
+        self.thetas_mu_bar = thetas_mu_bar # why is this required after __auto_init?
+
+    def evaluate(self, mu=None):
+        mu = self.parse_parameter(mu)
+        thetas_mu = np.array([theta(mu) for theta in self.thetas_num])
+        return self.gamma_mu_bar * np.max(thetas_mu / self.thetas_mu_bar)
+
+    def d_mu(self, component, index=()):
+        raise NotImplementedError
+
+
+class MaxThetaParameterFunctional(BaseMaxThetaParameterFunctional):
     """|ParameterFunctional| implementing the max-theta approach from [Haa17]_ (Exercise 5.12).
 
 
@@ -392,24 +427,11 @@ class MaxThetaParameterFunctional(ParameterFunctional):
     """
 
     def __init__(self, thetas, mu_bar, gamma_mu_bar=1., name=None):
-        assert isinstance(thetas, (list, tuple))
-        thetas = [ConstantParameterFunctional(f) if not isinstance(f, ParameterFunctional) else f
-                  for f in thetas]
-        assert all([isinstance(f, ParameterFunctional) for f in thetas])
-        self.build_parameter_type(*chain(thetas))
-        mu_bar = self.parse_parameter(mu_bar)
-        thetas_mu_bar = np.array([theta(mu_bar) for theta in thetas])
-        assert np.all(thetas_mu_bar > 0)
-        assert isinstance(gamma_mu_bar, Number)
-        assert gamma_mu_bar > 0
         self.__auto_init(locals())
-        self.thetas_mu_bar = thetas_mu_bar # why is this required after __auto_init?
+        super().__init__(self.thetas, self.thetas, self.mu_bar, self.gamma_mu_bar, self.name)
 
     def evaluate(self, mu=None):
-        mu = self.parse_parameter(mu)
-        thetas_mu = np.array([theta(mu) for theta in self.thetas])
-        assert np.all(thetas_mu > 0)
-        return self.gamma_mu_bar * np.max(thetas_mu / self.thetas_mu_bar)
+        return super().evaluate(mu)
 
     def d_mu(self, component, index=()):
         raise NotImplementedError
