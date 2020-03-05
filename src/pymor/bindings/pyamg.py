@@ -183,10 +183,11 @@ if config.HAVE_PYAMG:
             raise NotImplementedError
 
         if isinstance(op, NumpyMatrixOperator):
-            matrix = op.matrix
+            from pymor.algorithms.to_matrix import to_matrix
+            matrix = to_matrix(op, format='csr')
         else:
             from pymor.algorithms.to_matrix import to_matrix
-            matrix = to_matrix(op)
+            matrix = to_matrix(op, format='csr')
 
         options = _parse_options(options, solver_options(), default_solver, None, least_squares)
 
@@ -200,7 +201,7 @@ if config.HAVE_PYAMG:
                 R[0], ml = pyamg.solve(matrix, next(V_iter)[1],
                                        tol=options['tol'],
                                        maxiter=options['maxiter'],
-                                       return_solver=True)
+                                       return_solver=True, verb=False)
                 for i, VV in V_iter:
                     R[i] = pyamg.solve(matrix, VV,
                                        tol=options['tol'],
