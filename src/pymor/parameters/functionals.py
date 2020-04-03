@@ -275,6 +275,7 @@ class ProductParameterFunctional(ParameterFunctional):
         return np.array([f.evaluate(mu) if hasattr(f, 'evaluate') else f for f in self.factors]).prod()
 
     def d_mu(self, component, index=()):
+        # TODO: TIM MAKE THIS BETTER !!! 
         sum_of_parametric = 0
         at = 0
         for i, f in enumerate(self.factors):
@@ -284,8 +285,37 @@ class ProductParameterFunctional(ParameterFunctional):
         if sum_of_parametric == 0:
             return ConstantParameterFunctional(0, name=self.name + '_d_mu')
         elif sum_of_parametric == 1:
-            factors = [self.factors[at].d_mu(component, index)]
-            factors.extend([f for f in self.factors if not isinstance(f ,ParameterFunctional)])
+            if self.factors[at].parameter_type is not None:
+                if 'basis_coefficients' in dict(self.factors[at].parameter_type).keys(): # <-- this is a special case for pde_opt usercode
+                    factors = [0*f for f in self.factors]
+                else:
+                    factors = [self.factors[at].d_mu(component, index)]
+                    factors.extend([f for f in self.factors if not isinstance(f ,ParameterFunctional)])
+            else:
+                factors = [self.factors[at].d_mu(component, index)]
+                factors.extend([f for f in self.factors if not isinstance(f ,ParameterFunctional)])
+            # print('now the factors are: ', factors)
+            return self.with_(factors = factors)
+        elif sum_of_parametric == 2:
+            # print('got factors: ', self.factors)
+            factors = []
+            happened = 0
+            for i, f in enumerate(self.factors):
+                if isinstance(f, ParameterFunctional):
+                    if f.parameter_type is not None:
+                        if 'basis_coefficients' in dict(f.parameter_type).keys(): # <-- this is a special case for pde_opt usercode
+                            factors.append(f)
+                            # print(self.factors)
+                        else:
+                            factors.append(f.d_mu(component, index))
+                            happened += 1
+                    else:
+                        factors.append(f.d_mu(component, index))
+                        happened += 1
+                else:
+                    factors.append(f)
+            assert happened == 1, 'The derivative is probably wrong'
+            # print('now the factors are: ', factors)
             return self.with_(factors = factors)
         else:
             raise NotImplementedError
