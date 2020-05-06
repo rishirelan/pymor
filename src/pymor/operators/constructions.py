@@ -1324,7 +1324,7 @@ class SelectionOperator(Operator):
 
 
 @defaults('raise_negative', 'tol')
-def induced_norm(product, raise_negative=True, tol=1e-10, name=None):
+def induced_norm(product, raise_negative=True, tol=1e-20, name=None):
     """Obtain induced norm of an inner product.
 
     The norm of the vectors in a |VectorArray| U is calculated by
@@ -1373,6 +1373,10 @@ class InducedNorm(ImmutableObject, Parametric):
         if self.tol > 0:
             norm_squared = np.where(np.logical_and(0 > norm_squared, norm_squared > - self.tol),
                                     0, norm_squared)
-        if self.raise_negative and np.any(norm_squared < 0):
-            raise ValueError(f'norm is negative (square = {norm_squared})')
+        if self.raise_negative and np.any(norm_squared < 0): 
+            if np.abs(norm_squared)>1e-7:
+                raise ValueError(f'norm is negative (square = {norm_squared})')
+            else:
+                # print('from {} to {}'.format(norm_squared, np.abs(norm_squared)))
+                norm_squared = np.abs(norm_squared)
         return np.sqrt(norm_squared)
