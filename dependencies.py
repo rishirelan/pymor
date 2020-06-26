@@ -42,6 +42,7 @@ install_suggests = {'ipython>=5.0': 'an enhanced interactive python shell',
                     'ipywidgets': 'notebook GUI elements',
                     'nbresuse': 'resource usage indicator for notebooks',
                     'jupyter_contrib_nbextensions': 'modular collection of jupyter extensions',
+                    'ipyscales': 'library to display color bars in jupyter',
                     'pillow': 'image library used for bitmap data functions'}
 doc_requires = ['sphinx>=1.7', 'jupyter_sphinx', 'matplotlib', 'PySide2', 'ipyparallel>=6.2.5',
                 'ipywidgets', 'sphinx-qt-documentation'] + install_requires
