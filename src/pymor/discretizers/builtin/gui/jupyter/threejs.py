@@ -10,6 +10,7 @@ import IPython
 import numpy as np
 from ipywidgets import IntSlider, interact, widgets, Play, Layout
 import pythreejs as p3js
+from ipyscales import NamedSequentialColorMap, ColorBar
 from matplotlib.cm import get_cmap
 
 from pymor.core import config
@@ -189,53 +190,20 @@ class Renderer(widgets.VBox):
 
 
 class ColorBarRenderer(widgets.VBox):
-    def __init__(self, render_size, color_map, vmin=None, vmax=None):
+    def __init__(self, render_size, color_map, vmin, vmax):
         self.render_size = render_size
         self.layout = Layout(min_width=str(render_size[0]), min_height=str(render_size[1]), margin='0px 0px 0px 20px ')
         self.color_map = color_map
         self.vmin, self.vmax = vmin, vmax
-        self.image = self._gen_sprite()
-        super().__init__(children=[self.image, ])
+        cm = NamedSequentialColorMap(color_map.name, domain=(self.vmin, self.vmax))
+        self.bar = ColorBar(colormap=cm, length=self.render_size[1], orientation='vertical')
+        super().__init__(children=[self.bar, ])
 
     def freeze_camera(self, freeze=True):
         pass
 
     def goto(self, _):
         pass
-
-    def _gen_sprite(self):
-        from PIL import Image, ImageFont, ImageDraw
-        # upsacle to pow2
-        sprite_size = (self.render_size[0], self.render_size[1])
-        image = Image.new('RGBA', sprite_size, color=(255,255,255,255))
-        draw = ImageDraw.Draw(image)
-        ttf = '/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf'
-        font_size = 12
-        font = ImageFont.truetype(ttf, font_size)
-        bar_width = 25
-        bar_padding = font_size // 2
-        bar_height = sprite_size[1] - (2*bar_padding)
-        # we have to flip the Y coord cause PIL's coordinate system is different from OGL
-        for i in range(bar_height):
-            cl = tuple((np.array(self.color_map(bar_height-i))*255).astype(np.int_))
-            draw.line([(0, bar_padding+i), (bar_width, bar_padding+i)], cl, width=1)
-
-        text_x = bar_width + 4
-        text_color = (0,0,0,255)
-        text_fmt = '{:+1.3e}'
-        draw.text((text_x, 0), text_fmt.format(self.vmax), font=font, fill=text_color)
-        draw.text((text_x, (bar_height-bar_padding)//2), text_fmt.format((self.vmax+self.vmin)/2), font=font, fill=text_color)
-        draw.text((text_x, bar_height-bar_padding), text_fmt.format(self.vmin), font=font, fill=text_color)
-
-        of = BytesIO()
-        image.save(of, format='png')
-        of.seek(0)
-        return widgets.Image(
-            value=of.read(),
-            format='png',
-            width=self.render_size[0],
-            height=self.render_size[1],
-        )
 
 
 class ThreeJSPlot(widgets.VBox):
