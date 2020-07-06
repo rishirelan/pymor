@@ -287,8 +287,8 @@ wheel {{ML}} py{{PY[0]}} {{PY[2]}}:
 {% for OS in testos %}
 check_wheel {{loop.index}}:
     extends: .check_wheel
-    image: pymor/deploy_checks:devpi_{{OS}}
-    script: devpi install pymor[full]
+    image: pymor/deploy_checks_{{OS}}:{{ci_image_tag}}
+    script: pip install pymor[full]
 {% endfor %}
 
 docs build:
