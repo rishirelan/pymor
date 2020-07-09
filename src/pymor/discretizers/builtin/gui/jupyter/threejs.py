@@ -8,6 +8,7 @@ from io import BytesIO
 
 import IPython
 import numpy as np
+from IPython.core.display import display, Javascript
 from ipywidgets import IntSlider, interact, widgets, Play, Layout
 import pythreejs as p3js
 from matplotlib.cm import get_cmap
@@ -136,6 +137,8 @@ class Renderer(widgets.VBox):
 
     async def _async_load_data(self, data):
         self._load_data(data)
+        display(Javascript('Jupyter.menubar.actions._actions["widgets:save-with-widgets"].handler()'),
+                include=['application/javascript'])
 
     def _load_data(self, data):
         for u in data:
