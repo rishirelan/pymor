@@ -10,6 +10,7 @@ ARG BUILD_ENV=binder
 
 FROM $BASE as image_binder
 ONBUILD ADD . /pymor
+ONBUILD RUN for fn in /pymor/notebooks/*ipynb ; do jupyter trust ${fn} ; done
 
 FROM $BASE as image_dev
 ONBUILD RUN echo "dev image uses mounted pymor" && mkdir /pymor
