@@ -31,5 +31,5 @@ python setup.py build_ext -i
 
 PYMOR_VERSION=$(python -c 'import pymor;print(pymor.__version__)')
 COMMON_PYTEST_OPTS="--junitxml=test_results_${PYMOR_VERSION}.xml --cov=src/pymor --cov-report=xml  \
-  --memprof-top-n 50 --memprof-csv-file=memory_usage.txt\
+  --memprof-top-n 50 --memprof-csv-file=memory_usage.txt -n 2 \
   --hypothesis-profile ${PYMOR_HYPOTHESIS_PROFILE}"
