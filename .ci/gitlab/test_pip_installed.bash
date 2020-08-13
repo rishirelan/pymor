@@ -13,9 +13,8 @@ PIP_CLONE_URL="git+${CI_PROJECT_URL}@${CI_COMMIT_SHA}"
 pip install ${PIP_CLONE_URL}
 pip uninstall -y pymor
 
-# this is currently disabled because it erroneously pulls in pyqt5
-# pip install ${PIP_CLONE_URL}#egg=pymor[full]
-# pip uninstall -y pymor
+pip install ${PIP_CLONE_URL}#egg=pymor[full]
+pip uninstall -y pymor
 
 pip install .[full]
 pip uninstall -y pymor
