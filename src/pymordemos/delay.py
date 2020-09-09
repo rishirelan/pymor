@@ -79,7 +79,7 @@ if __name__ == '__main__':
     # match steady state (add interpolation point at 0)
     sigma_ss = list(sigma_list[-1]) + [0]
     b_ss = tf.input_space.ones(r + 1)
-    c_ss = tf.output_space.ones(r + 1)
+    c_ss = tf.D.range.ones(r + 1)
     interp_reductor = TFBHIReductor(tf)
     rom_ss = interp_reductor.reduce(sigma_ss, b_ss, c_ss)
 

@@ -73,7 +73,7 @@ class StationaryModel(Model):
         self.solution_space = operator.source
         self.linear = operator.linear and (output_functional is None or output_functional.linear)
         if output_functional is not None:
-            self.output_space = output_functional.range
+            self.output_dim = output_functional.range.dim
 
     def __str__(self):
         return (
@@ -81,7 +81,7 @@ class StationaryModel(Model):
             f'    class: {self.__class__.__name__}\n'
             f'    {"linear" if self.linear else "non-linear"}\n'
             f'    solution_space:  {self.solution_space}\n'
-            f'    output_space:    {self.output_space}\n'
+            f'    output_dim:      {self.output_dim}\n'
         )
 
     def _solve(self, mu=None, return_output=False):
@@ -93,7 +93,7 @@ class StationaryModel(Model):
         if return_output:
             if self.output_functional is None:
                 raise ValueError('Model has no output')
-            return U, self.output_functional.apply(U, mu=mu)
+            return U, self.output_functional.apply(U, mu=mu).to_numpy()
         else:
             return U
 
@@ -181,6 +181,8 @@ class InstationaryModel(Model):
         self.__auto_init(locals())
         self.solution_space = operator.source
         self.linear = operator.linear and (output_functional is None or output_functional.linear)
+        if output_functional is not None:
+            self.output_dim = output_functional.range.dim
 
     def __str__(self):
         return (
@@ -189,7 +191,7 @@ class InstationaryModel(Model):
             f'    {"linear" if self.linear else "non-linear"}\n'
             f'    T: {self.T}\n'
             f'    solution_space:  {self.solution_space}\n'
-            f'    output_space:    {self.output_space}\n'
+            f'    output_dim:      {self.output_dim}\n'
         )
 
     def with_time_stepper(self, **kwargs):
@@ -207,7 +209,7 @@ class InstationaryModel(Model):
         if return_output:
             if self.output_functional is None:
                 raise ValueError('Model has no output')
-            return U, self.output_functional.apply(U, mu=mu)
+            return U, self.output_functional.apply(U, mu=mu).to_numpy()
         else:
             return U
 

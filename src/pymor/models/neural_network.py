@@ -60,7 +60,7 @@ if config.HAVE_TORCH:
             self.solution_space = NumpyVectorSpace(neural_network.output_dimension)
             self.linear = output_functional is None or output_functional.linear
             if output_functional is not None:
-                self.output_space = output_functional.range
+                self.output_dim = output_functional.range.dim
 
         def _solve(self, mu=None, return_output=False):
             if not self.logging_disabled:
@@ -76,7 +76,7 @@ if config.HAVE_TORCH:
             if return_output:
                 if self.output_functional is None:
                     raise ValueError('Model has no output')
-                return U, self.output_functional.apply(U, mu=mu)
+                return U, self.output_functional.apply(U, mu=mu).to_numpy()
             else:
                 return U
 

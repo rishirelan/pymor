@@ -23,9 +23,9 @@ class Model(CacheableObject, ParametricObject):
     ----------
     solution_space
         |VectorSpace| of the solution |VectorArrays| returned by :meth:`solve`.
-    output_space
-        |VectorSpace| of the model output |VectorArrays| returned by
-        :meth:`output` (typically `NumpyVectorSpace(k)` where `k` is a small).
+    output_dim
+        Dimension of the model output returned by :meth:`output`. `None` if the
+        model has no output.
     linear
         `True` if the model describes a linear problem.
     products
@@ -33,7 +33,7 @@ class Model(CacheableObject, ParametricObject):
     """
 
     solution_space = None
-    output_space = None
+    output_dim = None
     linear = False
     products = FrozenDict()
 
@@ -64,12 +64,15 @@ class Model(CacheableObject, ParametricObject):
             |Parameter values| for which to solve.
         return_output
             If `True`, the model output for the given |parameter values| `mu` is
-            returned as a |VectorArray| from :attr:`output_space`.
+            returned as a 2D |NumPy array| with dimension :attr:`output_dim` in
+            axis 1. (For stationary problems, axis 0 has dimension 1. For
+            time-dependent problems, the dimension of axis 0 depends on the number
+            of time steps.)
 
         Returns
         -------
         The solution |VectorArray|. When `return_output` is `True`,
-        the output |VectorArray| is returned as second value.
+        the output |NumPy array| is returned as second value.
         """
         if not isinstance(mu, Mu):
             mu = self.parameters.parse(mu)
@@ -86,7 +89,10 @@ class Model(CacheableObject, ParametricObject):
 
         Returns
         -------
-        The computed model output as a |VectorArray| from `output_space`.
+        The computed model output as a as a 2D |NumPy array| with dimension
+        :attr:`output_dim` in axis 1. (For stationary problems, axis 0 has
+        dimension 1. For time-dependent problems, the dimension of axis 0 
+        depends on the number of time steps.)
         """
         return self.solve(mu=mu, return_output=True, **kwargs)[1]
 
