@@ -89,7 +89,7 @@ class Model(CacheableObject, ParametricObject):
 
         Returns
         -------
-        The computed model output as a as a 2D |NumPy array| with dimension
+        The computed model output as a 2D |NumPy array| with dimension
         :attr:`output_dim` in axis 1. (For stationary problems, axis 0 has
         dimension 1. For time-dependent problems, the dimension of axis 0 
         depends on the number of time steps.)

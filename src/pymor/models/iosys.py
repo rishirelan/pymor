@@ -2030,7 +2030,7 @@ class LinearDelayModel(InputStateOutputModel):
         B = BlockColumnOperator([self.B, other.B])
         C = BlockRowOperator([self.C, -other.C])
         if self.D is other.D:
-            D = ZeroOperator(self.D.range, self.D.range)
+            D = ZeroOperator(self.D.range, self.D.source)
         else:
             D = self.D - other.D
         return self.with_(E=E, A=A, Ad=Ad, tau=tau, B=B, C=C, D=D)
