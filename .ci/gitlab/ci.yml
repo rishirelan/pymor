@@ -22,7 +22,7 @@ stages:
           when: never
         - when: on_success
     variables:
-        PYPI_MIRROR_TAG: 6482589aa9345c76ae77437661ecb4d67a1963d4
+        PYPI_MIRROR_TAG: 9e10c0ed1e4756107c9899ca617319b24753b5e8
         CI_IMAGE_TAG: 6482589aa9345c76ae77437661ecb4d67a1963d4
         PYMOR_HYPOTHESIS_PROFILE: ci
 
@@ -171,7 +171,7 @@ minimal_cpp_demo:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.7:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
     script: ./.ci/gitlab/cpp_demo.bash
@@ -182,7 +182,7 @@ mpi 3 6:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.6:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -202,7 +202,7 @@ mpi 3 7:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.7:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -222,7 +222,7 @@ mpi 3 8:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.8:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -242,7 +242,7 @@ notebooks_dir 3 6:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.6:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -262,7 +262,7 @@ notebooks_dir 3 7:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.7:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -282,7 +282,7 @@ notebooks_dir 3 8:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.8:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -302,7 +302,7 @@ pip_installed 3 6:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.6:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -322,7 +322,7 @@ pip_installed 3 7:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.7:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -342,7 +342,7 @@ pip_installed 3 8:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.8:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -362,7 +362,7 @@ vanilla 3 6:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.6:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -382,7 +382,7 @@ vanilla 3 7:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.7:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -402,7 +402,7 @@ vanilla 3 8:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.8:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -422,7 +422,7 @@ numpy_git 3 8:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.8:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -442,7 +442,7 @@ oldest 3 6:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_oldest_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_oldest_py3.6:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
@@ -462,7 +462,7 @@ ci_weekly 3 6:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: always
     services:
-        - name: pymor/pypi-mirror_stable_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.6:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
     
@@ -474,7 +474,7 @@ ci_weekly 3 7:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: always
     services:
-        - name: pymor/pypi-mirror_stable_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.7:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
     
@@ -486,7 +486,7 @@ ci_weekly 3 8:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: always
     services:
-        - name: pymor/pypi-mirror_stable_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.8:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/testing_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
     
@@ -582,7 +582,7 @@ submit ci_weekly 3 8:
 pip 1/3:
     tags: [mike]
     services:
-        - name: pymor/pypi-mirror_stable_py3.6:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.6:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -595,7 +595,7 @@ pip 1/3:
 pip 2/3:
     tags: [mike]
     services:
-        - name: pymor/pypi-mirror_stable_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.7:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -608,7 +608,7 @@ pip 2/3:
 pip 3/3:
     tags: [mike]
     services:
-        - name: pymor/pypi-mirror_stable_py3.8:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.8:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -847,7 +847,7 @@ docs build:
           when: never
         - when: on_success
     services:
-        - name: pymor/pypi-mirror_stable_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
+        - name: pymor/pypi-mirror_stable_py3.7:9e10c0ed1e4756107c9899ca617319b24753b5e8
           alias: pypi_mirror
     image: pymor/jupyter_py3.7:6482589aa9345c76ae77437661ecb4d67a1963d4
     script:
